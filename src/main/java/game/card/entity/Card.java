@@ -1,6 +1,5 @@
 package game.card.entity;
 
-import java.util.Comparator;
 import java.util.HashMap;
 
 public class Card {

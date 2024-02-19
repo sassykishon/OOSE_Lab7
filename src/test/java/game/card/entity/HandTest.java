@@ -38,11 +38,13 @@ class HandTest {
 
     @Test
     void testSortHand(){
-        fail("Not yet implemented"); //Remove
+        hand.sortHand();
+        assertEquals("C5, D2, D3, D5, D6, D7, S7", hand.toString());
     }
 
     @Test
     void testSortHandFace(){
-        fail("Not yet implemented"); //Remove
+        hand.sortHandByFace();
+        assertEquals("D2, D3, C5, D5, D6, D7, S7", hand.toString());
     }
 }

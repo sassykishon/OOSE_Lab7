@@ -1,7 +1,6 @@
 package game.card.entity;
 
 import java.util.*;
-import java.util.HashMap;
 
 public class Hand {
 
@@ -139,11 +138,39 @@ public class Hand {
     }
 
     public void sortHand() {
-        //Task two code
+        int n = size();
+        List<Card> list = getHandOfCards();
+
+        for (int j = 0; j<n; j++) {
+            int min = j;
+            for (int i = j+1; i<n; i++) {
+                if (list.get(i).getSuitThenFaceCardAssociatedValue() < list.get(min).getSuitThenFaceCardAssociatedValue()) {
+                    min = i;
+                }
+            }
+            Card temp = list.get(j);
+            list.set(j, list.get(min));
+            list.set(min, temp);
+            
+        }
     }
 
     public void sortHandByFace() {
-        //Task two code
+        int n = size();
+        List<Card> list = getHandOfCards();
+
+        for (int j = 0; j<n; j++) {
+            int min = j;
+            for (int i = j+1; i<n; i++) {
+                if (list.get(i).getFaceCard().getValue() < list.get(min).getFaceCard().getValue()) {
+                    min = i;
+                }
+            }
+            Card temp = list.get(j);
+            list.set(j, list.get(min));
+            list.set(min, temp);
+            
+        }
     }
 
     public boolean hasCard(String codeShortCode) {
@@ -283,5 +310,18 @@ public class Hand {
             prefix = ", ";
         }
         return display;
+    }
+
+    public static void main(String[] args) {
+        Hand hand = new Hand("C5,D3,D2,D5,D6,D7,S7");
+        hand.sortHand();
+        List<Card> listOfCards = hand.getHandOfCards();
+        for (Card card : listOfCards) {
+            System.out.println(card.toString());
+
+        }
+        if ("C5,D2, D3, D5, D6, D7, S7".equals(hand)) {
+            System.out.println("yay");
+        }
     }
 }

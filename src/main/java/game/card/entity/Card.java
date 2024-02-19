@@ -1,5 +1,6 @@
 package game.card.entity;
 
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class Card {
@@ -24,6 +25,7 @@ public class Card {
         }
     }
 
+
     public static Card getInstance(String shortCodeForCard) {
         Card card = cards.get(shortCodeForCard);
         if (card == null) {
@@ -32,6 +34,7 @@ public class Card {
         }
         return card;
     }
+
 
     public static Card getInstance(Suit suit, FaceCard cardFace) {
         String shortCodeForCard = suit.toString() + cardFace.toString();
@@ -61,6 +64,19 @@ public class Card {
 
     public String toString() {
         return suit + cardFace.toString();
+    }
+
+    public int getSuitThenFaceCardAssociatedValue() {
+        int cardFaceValue = getFaceCard().getValue();
+        if (this.getSuit() == Suit.CLUBS) {
+            return 100 + cardFaceValue;
+        } else if (this.getSuit() == Suit.DIAMONDS) {
+            return 200 + cardFaceValue;
+        } else if (this.getSuit() == Suit.HEARTS) {
+            return 300 + cardFaceValue;
+        } else {
+            return 400 + cardFaceValue;
+        }
     }
 
 }

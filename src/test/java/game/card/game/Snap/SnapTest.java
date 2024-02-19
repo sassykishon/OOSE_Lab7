@@ -12,27 +12,33 @@ public class SnapTest {
 
     @Test
     void testSnapOverride(){
-        fail("Not yet implemented"); //Remove
+        Snap snap = new Snap("S3,S4,S5");
+        assertEquals(3, snap.getDeck().size());
     }
 
     @Test
     void testSnapNoOverride(){
-        fail("Not yet implemented"); //Remove
+        assertEquals(52, snap.getDeck().size());
     }
 
     @Test
     void testDealCards(){
-        fail("Not yet implemented"); //Remove
+        snap.createComputerCompetitors(4);
+        snap.dealCards();
+        assertEquals(13, snap.getPlayer(0).getHand().size());
     }
 
     @Test
     void testHasSnapped(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand("S3,S4,C4");
+        assertTrue(snap.hasSnapped(YesOrNo.YES, hand));
+
     }
 
     @Test
     void testHasSnappedWithDifferntCards(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand("S3,S4,C5");
+        assertFalse(snap.hasSnapped(YesOrNo.YES, hand));
     }
 
     

@@ -50,7 +50,7 @@ public class Hand {
     }
 
     public Card getSecondLastCard(){
-        return null; //Task one
+        return handOfCards.get(size()-2);
     }
 
     public Card findACard(String cardShortCode) {

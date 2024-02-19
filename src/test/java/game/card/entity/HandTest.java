@@ -33,7 +33,7 @@ class HandTest {
 
     @Test
     void testGetSecondLastCard() {
-        fail("Not yet implemented"); //Remove
+        assertEquals("D7", this.hand.getSecondLastCard().toString());
     }
 
     @Test

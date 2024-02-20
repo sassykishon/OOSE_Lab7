@@ -20,6 +20,9 @@ public class ScoreTrickHand {
     }
     
     public List<Hand> getStraightSameSuit(Hand hand){
+        if (hand == null) {
+            return new ArrayList<>();
+        }
         List<Hand> returnList = new ArrayList<>();
         List<Card> listOfCards = hand.getHandOfCards();
         List<Suit> listOfSuits = new ArrayList<>();
@@ -58,6 +61,13 @@ public class ScoreTrickHand {
             }
         }
         return sameFaceCards;
+    }
+
+    public static void main(String[] args) {
+        ScoreTrickHand scoreTrickHand = new ScoreTrickHand();
+        Hand hand = new Hand("D2,D3,S3,D4,D5,D6,SA");
+        HashMap<FaceCard, Hand> hashmap = scoreTrickHand.getSameFaceCards(hand);
+        System.out.println(hashmap);
     }
 
 }

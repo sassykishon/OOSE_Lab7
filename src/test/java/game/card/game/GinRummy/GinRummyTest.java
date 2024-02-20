@@ -4,65 +4,90 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import game.card.entity.Hand;
+import game.card.game.Snap.Snap;
 import game.card.entity.Card;
 import game.card.entity.CompetitorType;
 import game.Player;
 
 public class GinRummyTest {
 
+    GinRummy ginRummy = new GinRummy();
+
     @Test
     void testGinRummyOverride(){
-        fail("Not yet implemented"); //Remove
+        GinRummy ginRummy = new GinRummy("S3,S4,S5");
+        assertEquals(3, ginRummy.getDeck().size());
     }
 
     @Test
     void testGinRummyNoOverride(){
-        fail("Not yet implemented"); //Remove
+        assertEquals(52, ginRummy.getDeck().size());
     }
 
     @Test
     void testMaxSameFaceCardSize(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand("D2,D3,S3,D4,D5,D9,SA");
+        assertEquals(2, ginRummy.maxSameFaceCardSize(hand));
     }
 
     @Test
     void testMaxStraightSuitSize(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand("D2,D3,S3,D4,D5,D9,SA");
+        assertEquals(4, ginRummy.maxStraightSuitSize(hand));
     }
 
     @Test 
     void testScoreHand(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand( "D2,D3,S3,D4,D5,D9,SA");
+        assertEquals(6, ginRummy.scoreHand(hand));
     }
 
     @Test
     void testScoreHandWin(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand( "D7,D2,S2,D4,D5,D6,S2");
+        assertEquals(7, ginRummy.scoreHand(hand));
     }
 
     @Test
     void testRemoveWeakestCard(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand("D2,D3,S3,D4,D5,D6,S9,SA");
+        int initialCardScore = ginRummy.scoreHand(hand);
+        ginRummy.removeWeakestCard(hand);
+        assertEquals(initialCardScore, ginRummy.scoreHand(hand));
     }
 
     @Test
     void testScoreWithCard(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand( "D2,D3,S3,D4,D5,D6,SA");
+        Card card = new Card("S9");
+        Card cardToCheck = ginRummy.scoreWithCard(hand, card);
+        assertEquals("S9", cardToCheck.toString());
     }
 
     @Test
     void testScoreWithCardBetterCard(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand("D2,D3,S9,D4,D5,D6,SA");
+        Card card = new Card("S3");
+        Card cardToCheck = ginRummy.scoreWithCard(hand, card);
+        assertEquals("S9", cardToCheck.toString());
     }
 
     @Test
     void testAfterPlayerPlaysNotWon(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand("D2,D3,S3,D4,D10,D6,SA");
+        Player player = new Player(CompetitorType.USER, "Player");
+        player.addHand(hand);
+        ginRummy.afterPlayerPlays(player);
+        assertEquals(false, player.hasWon());
     }
 
     @Test
     void testAfterPlayerPlaysWon(){
-        fail("Not yet implemented"); //Remove
+        Hand hand = new Hand("D7,D2,S2,D4,D5,D6,S2");
+        Player player = new Player(CompetitorType.USER, "Player");
+        player.addHand(hand);
+        ginRummy.afterPlayerPlays(player);
+        assertEquals(true, player.hasWon());
     }
 
 

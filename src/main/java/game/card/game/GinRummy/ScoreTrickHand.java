@@ -5,45 +5,58 @@ import java.util.HashMap;
 import java.util.List;
 
 import game.card.entity.Hand;
+import game.card.entity.Suit;
 import game.card.entity.Card;
 import game.card.entity.FaceCard;
 
 public class ScoreTrickHand {  
 
+    public ScoreTrickHand() {
+    }
 
     protected boolean isSameSuitAndNext(Card previousCard, Card nextCard){
         return previousCard != null && previousCard.getSuit() == nextCard.getSuit() &&
         previousCard.getFaceCard().ordinal() == nextCard.getFaceCard().ordinal() -1;
     }
     
-    protected List<Hand> getStraightSameSuit(Hand hand) {
-        List<Hand> straightHands = new ArrayList<Hand>();
-        Hand straightHand = new Hand();
-        hand.sortHand();;
-        Card previousCard = null;
-        for (Card nextCard : hand.getHandOfCards()) {
-            if (isSameSuitAndNext(previousCard, nextCard)) {
-                if (!straightHand.getHandOfCards().contains(previousCard)){
-                    straightHand.add(previousCard);
+    public List<Hand> getStraightSameSuit(Hand hand){
+        List<Hand> returnList = new ArrayList<>();
+        List<Card> listOfCards = hand.getHandOfCards();
+        List<Suit> listOfSuits = new ArrayList<>();
+        for (Card card : listOfCards) {
+            Suit currentSuit = card.getSuit();
+            if (!listOfSuits.contains(currentSuit)) {
+                listOfSuits.add(currentSuit);
+                Hand currentHand = new Hand();
+                for (Card cardToMatch : listOfCards) {
+                    if (cardToMatch.getSuit().equals(currentSuit)) {
+                        currentHand.add(cardToMatch);
+                    }
                 }
-                straightHand.add(nextCard);
-            } else {
-                if (straightHand.size() > 0){
-                    straightHands.add(straightHand);
-                    straightHand = new Hand();
+                if (currentHand.size() > 1) {
+                    currentHand.sortHand();
+                    returnList.add(currentHand);
                 }
             }
-            previousCard = nextCard;
         }
-        if (straightHand.size() > 0){
-            straightHands.add(straightHand);
-        }
-        return straightHands;
+        return returnList;
     }
 
     protected HashMap<FaceCard, Hand> getSameFaceCards(Hand hand) {
         HashMap<FaceCard, Hand> sameFaceCards = new HashMap<FaceCard, Hand>();
-        //Task Three code
+        List<Card> listOfCards = hand.getHandOfCards();
+        for (Card card : listOfCards) {
+            FaceCard currentFaceCard = card.getFaceCard();
+            Hand currentHand = new Hand();
+            for (Card cardToMatch : listOfCards) {
+                if (cardToMatch.getFaceCard().equals(currentFaceCard)) {
+                    currentHand.add(cardToMatch);
+                }
+            }
+            if (currentHand.size() > 1) {
+                sameFaceCards.put(currentFaceCard, currentHand);
+            }
+        }
         return sameFaceCards;
     }
 
